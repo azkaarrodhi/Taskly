@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="id">
+
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#f5f6fa">
+  <meta name="description" content="Taskly - to do list sederhana.">
+  <meta name="keywords" content="ToDo, Task, Taskly, Productivity, List">
+  <meta name="author" content="Azka AR.">
+
+    <link rel="manifest" href="manifest.json">
+
+  <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:wght@400;600&family=Carattere&family=Indie+Flower&display=swap" rel="stylesheet">
+
+  <title>Taskly - To Do List</title>
+
+  <style>
+    :root {
+      --primary: #1c86ee;
+      --bg: #f5f6fa;
+      --card: #ffffff;
+      --text: #444;
+      --muted: #666;
+       --colorpc: #222;
+    
+      
+    }
+    [data-theme="dark"] {
+      --bg: #0f0f17;
+      --card: #18202E;
+      --text: #ddd;
+      --muted: #aaa;
+      --colorpc: #ddd;
+   
+    }
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+   body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 30px 20px 1px 20px;
+      transition: 0.4s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    h1 { font-size: 2.2rem; margin-left: 10px; color: #1c86ee; font-weight: 700; font-family: "carattere", cursive;}
+    #themeToggle {
+      cursor: pointer;
+      font-size: 1.4rem;
+    }
+    .card {
+      background: var(--card);
+      padding: 15px;
+      border-radius: 12px;
+      user-select: none;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: 0.4s;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      transition: 0.4s;
+    }
+    button {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      user-select: none;
+      cursor: pointer;
+      border: none;
+    }
+    button:hover { opacity: 0.9; }
+    .stats {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      user-select: none;
+      transition: 0.4s;
+    }
+  input:focus,
+select:focus {
+  outline: none;   
+     
+  
+}
+  select{background-color: var(--input); color: var(--text);user-select: none;}
+    .stat {
+      flex: 1;
+      background: var(--card);
+      padding: 12px;
+      border-radius: 10px;
+      transition: 0.4s;
+      text-align: center;
+    }
+    .stat h2 { font-size: 1.2rem; margin-top: 5px; }
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      background-color: var(--input);
+      margin-bottom: 10px;
+    }
+    .filters button {
+      flex: 1;
+      font-size: 0.9rem;
+    }
+    .task {
+      background: var(--card);
+      padding: 12px;
+      border-radius: 10px;
+      transition: 0.4s;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 6px solid var(--primary);
+    }
+    .task.done {
+      border-left-color: #2ecc71;
+      opacity: 0.7;
+      text-decoration: line-through;
+    }
+    .task-info { flex: 1; }
+    .task-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .task-actions button {
+      padding: 6px 10px;
+      font-size: 0.8rem;
+    }
+  input{background-color: var(--input); color: var(--colorpc);}
+  
+.switch {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  background: #ccc;
+  border-radius: 50px;
+  cursor: pointer;
+  border: none;
+  margin-right: 9px;
+  outline: none;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+}
+
+.switch .knob {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s;
+}
+
+
+[data-theme="dark"] .switch {
+  background: var(--primary);
+}
+[data-theme="dark"] .switch .knob {
+  transform: translateX(24px);
+}
+  label {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 3px;
+    margin-left: 2px;
+    display: block;
+    transition: 0.4s;
+    color: var(--text);
+  }
+    .danger { background: #e74c3c; }
+    .success { background: #2ecc71; }
+    .warning { background: #f39c12; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Taskly</h1>
+  
+<button id="themeToggle" class="switch" aria-label="Toggle Theme">
+  <span class="knob">🌙</span>
+</button>
+  </header>
+
+  <div class="card">
+    <input type="text" id="taskInput" placeholder="Apa tugas kamu hari ini?">
+    <label for="categoryInput">Kategori:</label>
+    <select id="categoryInput">
+      <option value="Belajar">Belajar</option>
+      <option value="Kerja">Kerja</option>
+      <option value="Hobi">Hobi</option>
+      <option value="">Lainnya</option>
+    </select>
+    <label for="dateInput">Deadline:</label>
+<input type="datetime-local" id="dateInput">
+    <button id="addBtn">Tambah</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div>📋 Total</div><h2 id="totalCount">0</h2></div>
+    <div class="stat"><div>⏳ Belum</div><h2 id="pendingCount">0</h2></div>
+    <div class="stat"><div>✅ Selesai</div><h2 id="doneCount">0</h2></div>
+  </div>
+
+  <div class="filters">
+    <select id="filterCategory">
+      <option value="all">Semua Kategori</option>
+      <option value="Belajar">Belajar</option>
+      <option value="Kerja">Kerja</option>
+      <option value="Hobi">Hobi</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="Cari tugas...">
+  </div>
+
+  <div class="filters">
+    <button onclick="filterStatus('all')">Semua</button>
+    <button class="warning" onclick="filterStatus('pending')">Belum</button>
+    <button class="success" onclick="filterStatus('done')">Selesai</button>
+    <button class="danger" onclick="clearAll()">Hapus Semua</button>
+  </div>
+
+  <div id="taskList"></div>
+
+  <script>
+    const taskInput = document.getElementById("taskInput");
+    const categoryInput = document.getElementById("categoryInput");
+    const dateInput = document.getElementById("dateInput");
+    const addBtn = document.getElementById("addBtn");
+    const taskList = document.getElementById("taskList");
+    const filterCategory = document.getElementById("filterCategory");
+    const searchInput = document.getElementById("searchInput");
+    const themeToggle = document.getElementById("themeToggle");
+
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    let filter = "all";
+
+    function renderTasks() {
+      taskList.innerHTML = "";
+      let filtered = tasks.filter(task => {
+        let matchStatus = (filter === "all") || (filter === "done" && task.done) || (filter === "pending" && !task.done);
+        let matchCategory = (filterCategory.value === "all") || (task.category === filterCategory.value);
+        let matchSearch = task.text.toLowerCase().includes(searchInput.value.toLowerCase());
+        return matchStatus && matchCategory && matchSearch;
+      });
+
+      filtered.forEach((task, i) => {
+        let div = document.createElement("div");
+        div.className = "task " + (task.done ? "done" : "");
+        div.innerHTML = `
+          <div class="task-info">
+            <strong>${task.text}</strong><br>
+            <small>${task.category || "Umum"} • ${task.date || ""}</small>
+          </div>
+          <div class="task-actions">
+            <button class="success" onclick="toggleDone(${i})">${task.done ? "↩" : "✓"}</button>
+            <button class="danger" onclick="deleteTask(${i})">X</button>
+          </div>
+        `;
+        taskList.appendChild(div);
+      });
+
+      document.getElementById("totalCount").innerText = tasks.length;
+      document.getElementById("pendingCount").innerText = tasks.filter(t => !t.done).length;
+      document.getElementById("doneCount").innerText = tasks.filter(t => t.done).length;
+
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function addTask() {
+      if (!taskInput.value) return;
+      tasks.push({
+        text: taskInput.value,
+        category: categoryInput.value,
+        date: dateInput.value,
+        done: false
+      });
+      taskInput.value = "";
+      categoryInput.value = "";
+      dateInput.value = "";
+      renderTasks();
+    }
+
+    function toggleDone(i) {
+      tasks[i].done = !tasks[i].done;
+      renderTasks();
+    }
+
+    function deleteTask(i) {
+      tasks.splice(i, 1);
+      renderTasks();
+    }
+
+    function clearAll() {
+      if (confirm("Yakin hapus semua tugas?")) {
+        tasks = [];
+        renderTasks();
+      }
+    }
+
+    function filterStatus(status) {
+      filter = status;
+      renderTasks();
+    }
+
+    addBtn.addEventListener("click", addTask);
+    searchInput.addEventListener("input", renderTasks);
+    filterCategory.addEventListener("change", renderTasks);
+
+const metaTheme = document.querySelector('meta[name="theme-color"]');
+themeToggle.addEventListener("click", () => {
+  let theme = document.body.getAttribute("data-theme");
+  if (theme === "dark") {
+    document.body.removeAttribute("data-theme");
+    themeToggle.querySelector(".knob").textContent = "🌙";
+    metaTheme.setAttribute("content", "default");
+  } else {
+    document.body.setAttribute("data-theme", "dark");
+    themeToggle.querySelector(".knob").textContent = "🌙";
+    metaTheme.setAttribute("content", "#0f0f17");
+  }
+});
+
+    renderTasks();
+  </script>
+  <footer style="background:transparent; color:#aaa; text-align:center; padding:10px; margin-top:40px; font-size:14px;">
+  © 2025 Azka AR. All rights reserved.
+</footer>
+</body>
+</html>
