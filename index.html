@@ -377,8 +377,8 @@ denyNotif.addEventListener("click", () => {
       div.innerHTML = `
         <div class="task-info">
           <strong>${task.text}</strong><br>
-          <small>${task.category || "Umum"} • ${task.date || ""}</small>
-        </div>
+          <small>${task.category || "Umum"} • ${(task.date || "").replace("T", " ")}</small>
+          </div>
         <div class="task-actions">
           <button class="success" onclick="toggleDone(${i})">${task.done ? "↩" : "✓"}</button>
           <button class="danger" onclick="deleteTask(${i})">X</button>
