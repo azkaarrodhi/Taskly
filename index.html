@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -173,7 +174,45 @@ select:focus {
   transition: transform 0.3s;
 }
 
-
+.alert-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.alert-box {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: 280px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.alert-box h3 {
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.alert-box p {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: var(--muted);
+}
+.alert-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.alert-actions button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
 [data-theme="dark"] .switch {
   background: var(--primary);
 }
@@ -197,7 +236,17 @@ select:focus {
 <body>
   <header>
     <h1>Taskly</h1>
-  
+  <!-- Alert Custom -->
+<div id="notifAlert" class="alert-overlay" style="display:none;">
+  <div class="alert-box">
+    <h3>Aktifkan Notifikasi 🔔</h3>
+    <p>Taskly bisa mengingatkanmu saat ada deadline. Mau aktifkan?</p>
+    <div class="alert-actions">
+      <button id="allowNotif" class="success">Iya</button>
+      <button id="denyNotif" class="danger">Tidak</button>
+    </div>
+  </div>
+</div>
 <button id="themeToggle" class="switch" aria-label="Toggle Theme">
   <span class="knob">🌙</span>
 </button>
@@ -241,9 +290,52 @@ select:focus {
   </div>
 
   <div id="taskList"></div>
-
   <script>
-        const taskInput = document.getElementById("taskInput");
+const notifAlert = document.getElementById("notifAlert");
+const allowNotif = document.getElementById("allowNotif");
+const denyNotif = document.getElementById("denyNotif");
+
+   
+// cek izin notifikasi saat load halaman
+document.addEventListener("DOMContentLoaded", () => {
+  if ("Notification" in window) {
+    if (Notification.permission === "default") {
+      // kalau belum ada izin → munculkan popup custom
+      notifAlert.style.display = "flex";
+    } else if (Notification.permission === "denied") {
+      console.warn("User menolak notifikasi ❌");
+    }
+  }
+});
+
+// tombol Izinkan
+allowNotif.addEventListener("click", async () => {
+  notifAlert.style.display = "none";
+  let permission = await Notification.requestPermission();
+  if (permission === "granted") {
+    navigator.serviceWorker.getRegistration().then(reg => {
+      if (reg) {
+        reg.showNotification("Taskly", {
+          body: "Notifikasi berhasil diaktifkan 🎉",
+          icon: "https://azkaarrodhi.github.io/Taskly/taskly.png"
+        });
+      }
+    });
+  } else {
+    alert("Notifikasi tidak diaktifkan ❌");
+  }
+});
+
+// tombol Nanti
+denyNotif.addEventListener("click", () => {
+  notifAlert.style.display = "none";
+});
+  </script>
+
+
+ 
+  <script>
+   const taskInput = document.getElementById("taskInput");
   const categoryInput = document.getElementById("categoryInput");
   const dateInput = document.getElementById("dateInput");
   const addBtn = document.getElementById("addBtn");
@@ -252,6 +344,13 @@ select:focus {
   const searchInput = document.getElementById("searchInput");
   const themeToggle = document.getElementById("themeToggle");
 
+  if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js")
+    .then(reg => console.log("SW terdaftar:", reg.scope))
+    .catch(err => console.error("SW gagal:", err));
+  }
+   
+   
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   let filter = "all";
 
@@ -333,38 +432,28 @@ select:focus {
   }
 
   // ===== NOTIFIKASI =====
-  function requestNotificationPermission() {
-  if ("Notification" in window) {
-    if (Notification.permission === "default") {
-      // belum pilih → langsung minta izin
-      Notification.requestPermission().then(permission => {
-        console.log("Izin notif:", permission);
-        if (permission === "granted") {
-          new Notification("Notifikasi diaktifkan 🎉", {
-            body: "Taskly bisa kasih pengingat tugas sekarang.",
-            icon: "icon.png"
-          });
-        }
-      });
-    } else if (Notification.permission === "denied") {
-      console.warn("User menolak notifikasi ❌. Harus reset izin di pengaturan browser.");
-    }
-  }
-}
+  
 
 // panggil saat halaman pertama kali load
 document.addEventListener("DOMContentLoaded", requestNotificationPermission);
 
   function showNotification(title, body) {
-    if ("Notification" in window && Notification.permission === "granted") {
-      new Notification(title, { body: body, icon: "icon.png" });
+  if ("Notification" in window && Notification.permission === "granted") {
+    navigator.serviceWorker.getRegistration().then(reg => {
+      if (reg) {
+        reg.showNotification(title, {
+          body: body,
+          icon: "icon.png"
+        });
+      }
+    });
 
-      // opsional: bunyi alarm
-      const audio = new Audio(
-        "https://assets.mixkit.co/active_storage/sfx/2889/2889-preview.mp3"
-      );
-      audio.play();
-    }
+    // opsional: bunyi alarm
+    const audio = new Audio(
+      "https://assets.mixkit.co/active_storage/sfx/2889/2889-preview.mp3"
+    );
+    audio.play();
+  }
   }
 
   setInterval(() => {
@@ -392,12 +481,7 @@ document.addEventListener("DOMContentLoaded", requestNotificationPermission);
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, 10000); // cek tiap 1 menit
-// register service worker
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js")
-    .then(reg => console.log("SW terdaftar:", reg.scope))
-    .catch(err => console.error("SW gagal:", err));
-}
+
   // ===== THEME TOGGLE =====
   const metaTheme = document.querySelector('meta[name="theme-color"]');
   themeToggle.addEventListener("click", () => {
@@ -421,8 +505,9 @@ if ("serviceWorker" in navigator) {
   // ===== START =====
   requestNotificationPermission();
   renderTasks();
+  
   </script>
-  <footer style="background:transparent; color:#aaa; text-align:center; padding:10px; margin-top:40px; font-size:14px;">
+    <footer style="background:transparent; color:#aaa; text-align:center; padding:10px; margin-top:40px; font-size:14px;">
   © 2025 Azka AR. All rights reserved.
 </footer>
 </body>
