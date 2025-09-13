@@ -392,7 +392,12 @@ document.addEventListener("DOMContentLoaded", requestNotificationPermission);
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, 10000); // cek tiap 1 menit
-
+// register service worker
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js")
+    .then(reg => console.log("SW terdaftar:", reg.scope))
+    .catch(err => console.error("SW gagal:", err));
+}
   // ===== THEME TOGGLE =====
   const metaTheme = document.querySelector('meta[name="theme-color"]');
   themeToggle.addEventListener("click", () => {
