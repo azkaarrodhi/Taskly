@@ -538,7 +538,7 @@ themeToggle.addEventListener("click", () => {
   if (theme === "dark") {
     document.body.removeAttribute("data-theme");
     themeToggle.querySelector(".knob").textContent = "🌙";
-    metaTheme.setAttribute("content", "default");
+    metaTheme.setAttribute("content", "#f5f6fa");
     localStorage.setItem("theme", "light"); // simpan pilihan
   } else {
     document.body.setAttribute("data-theme", "dark");
