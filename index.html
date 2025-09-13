@@ -433,10 +433,6 @@ denyNotif.addEventListener("click", () => {
 
   // ===== NOTIFIKASI =====
   
-
-// panggil saat halaman pertama kali load
-document.addEventListener("DOMContentLoaded", requestNotificationPermission);
-
   function showNotification(title, body) {
   if ("Notification" in window && Notification.permission === "granted") {
     navigator.serviceWorker.getRegistration().then(reg => {
