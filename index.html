@@ -229,6 +229,52 @@ select:focus {
     transition: 0.4s;
     color: var(--text);
   }
+      #installAlert {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: linear-gradient(145deg, #1c86ee, #3aa0ff);
+      color: white;
+      padding: 20px 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s ease;
+      z-index: 9999;
+      max-width: 90%;
+    }
+
+    #installAlert.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #installAlert button {
+      background: white;
+      color: #1c86ee;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #installAlert button:hover {
+      transform: scale(1.05);
+      background: #f0f0f0;
+    }
+
+    #installAlert p {
+      margin: 0;
+      font-size: 15px;
+    }
     .danger { background: #e74c3c; }
     .success { background: #2ecc71; }
     .warning { background: #f39c12; }
@@ -252,6 +298,45 @@ select:focus {
   <span class="knob">🌙</span>
 </button>
   </header>
+
+<div id="installAlert">
+  <p>Instal aplikasi ini untuk pengalaman terbaik!</p>
+  <button id="installBtn">Instal</button>
+  <button id="dismissBtn">Tidak</button>
+</div>
+
+<script>
+ let installAlert = document.getElementById('installAlert');
+let installBtn = document.getElementById('installBtn');
+let dismissBtn = document.getElementById('dismissBtn');
+
+
+function isPWA() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+
+function showInstallAlert() {
+  installAlert.classList.add('show');
+}
+
+
+installBtn.addEventListener('click', () => {
+  window.location.href = "https://azkaarrodhi.github.io/Taskly/taskly.apk";
+});
+
+
+dismissBtn.addEventListener('click', () => {
+  installAlert.classList.remove('show');
+});
+
+
+setTimeout(() => {
+  if (!isPWA()) {
+    showInstallAlert();
+  }
+}, 500);
+</script>
 
   <div class="card">
     <input type="text" id="taskInput" placeholder="Apa tugas kamu hari ini?">
