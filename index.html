@@ -15,24 +15,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:wght@400;600&family=Carattere&family=Indie+Flower&display=swap" rel="stylesheet">
 
   <title>Taskly - To Do List</title>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging-compat.js"></script>
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyClBErlyRv20HwMf_zQC7REsZEknaFjs_8",
-    authDomain: "website-61783.firebaseapp.com",
-    projectId: "website-61783",
-    storageBucket: "website-61783.appspot.com",
-    messagingSenderId: "437361977695",
-    appId: "1:437361977695:web:7e1069062bfaca0f02aeea",
-    measurementId: "G-0X5NV4YK2V"
-  };
 
-  
-  firebase.initializeApp(firebaseConfig);
-  const messaging = firebase.messaging();
-</script>
   <style>
     :root {
       --primary: #1c86ee;
@@ -326,22 +310,22 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // tombol Izinkan
-allowNotif.addEventListener("click", async () => {
-  notifAlert.style.display = "none";
-  let permission = await Notification.requestPermission();
-  if (permission === "granted") {
-    navigator.serviceWorker.getRegistration().then(reg => {
-      if (reg) {
-        reg.showNotification("Taskly", {
-          body: "Notifikasi berhasil diaktifkan 🎉",
-          icon: "https://azkaarrodhi.github.io/Taskly/taskly.png"
-        });
-      }
-    });
-  } else {
-    alert("Notifikasi tidak diaktifkan ❌");
-  }
-});
+// allowNotif.addEventListener("click", async () => {
+//  notifAlert.style.display = "none";
+//  let permission = await Notification.requestPermission();
+//  if (permission === "granted") {
+//    navigator.serviceWorker.getRegistration().then(reg => {
+//      if (reg) {
+//        reg.showNotification("Taskly", {
+//          body: "Notifikasi berhasil diaktifkan 🎉",
+//          icon: "https://azkaarrodhi.github.io/Taskly/taskly.png"
+//        });
+//      }
+//    });
+//  } else {
+//    alert("Notifikasi tidak diaktifkan ❌");
+//  }
+// });
 
 // tombol Nanti
 denyNotif.addEventListener("click", () => {
