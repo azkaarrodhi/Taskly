@@ -334,12 +334,26 @@ select:focus {
 
   // ===== NOTIFIKASI =====
   function requestNotificationPermission() {
-    if ("Notification" in window) {
-      if (Notification.permission !== "granted") {
-        Notification.requestPermission();
-      }
+  if ("Notification" in window) {
+    if (Notification.permission === "default") {
+      // belum pilih → langsung minta izin
+      Notification.requestPermission().then(permission => {
+        console.log("Izin notif:", permission);
+        if (permission === "granted") {
+          new Notification("Notifikasi diaktifkan 🎉", {
+            body: "Taskly bisa kasih pengingat tugas sekarang.",
+            icon: "icon.png"
+          });
+        }
+      });
+    } else if (Notification.permission === "denied") {
+      console.warn("User menolak notifikasi ❌. Harus reset izin di pengaturan browser.");
     }
   }
+}
+
+// panggil saat halaman pertama kali load
+document.addEventListener("DOMContentLoaded", requestNotificationPermission);
 
   function showNotification(title, body) {
     if ("Notification" in window && Notification.permission === "granted") {
