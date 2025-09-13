@@ -2,7 +2,7 @@
   "name": "Taskly",
   "short_name": "Taskly",
   "description": "aplikasi berbasis Web",
-  "start_url": "/index.html",
+  "start_url": "https://azkaarrodhi.github.io/Taskly",
   "display": "standalone",
   "icons": [
     {
