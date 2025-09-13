@@ -517,19 +517,36 @@ denyNotif.addEventListener("click", () => {
   }, 10000); // cek tiap 1 menit
 
   // ===== THEME TOGGLE =====
-  const metaTheme = document.querySelector('meta[name="theme-color"]');
-  themeToggle.addEventListener("click", () => {
-    let theme = document.body.getAttribute("data-theme");
-    if (theme === "dark") {
-      document.body.removeAttribute("data-theme");
-      themeToggle.querySelector(".knob").textContent = "🌙";
-      metaTheme.setAttribute("content", "default");
-    } else {
-      document.body.setAttribute("data-theme", "dark");
-      themeToggle.querySelector(".knob").textContent = "🌙";
-      metaTheme.setAttribute("content", "#0f0f17");
-    }
-  });
+const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+// cek theme tersimpan saat load
+document.addEventListener("DOMContentLoaded", () => {
+  let savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.setAttribute("data-theme", "dark");
+    themeToggle.querySelector(".knob").textContent = "🌙";
+    metaTheme.setAttribute("content", "#0f0f17");
+  } else {
+    document.body.removeAttribute("data-theme");
+    themeToggle.querySelector(".knob").textContent = "🌙";
+    metaTheme.setAttribute("content", "default");
+  }
+});
+
+themeToggle.addEventListener("click", () => {
+  let theme = document.body.getAttribute("data-theme");
+  if (theme === "dark") {
+    document.body.removeAttribute("data-theme");
+    themeToggle.querySelector(".knob").textContent = "🌙";
+    metaTheme.setAttribute("content", "default");
+    localStorage.setItem("theme", "light"); // simpan pilihan
+  } else {
+    document.body.setAttribute("data-theme", "dark");
+    themeToggle.querySelector(".knob").textContent = "🌙";
+    metaTheme.setAttribute("content", "#0f0f17");
+    localStorage.setItem("theme", "dark"); // simpan pilihan
+  }
+});
 
   // ===== EVENT LISTENER =====
   addBtn.addEventListener("click", addTask);
