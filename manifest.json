@@ -1,0 +1,19 @@
+{
+  "name": "Taskly To Do List",
+  "short_name": "Taskly",
+  "description": "aplikasi berbasis Web",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/taskly.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/taskly.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
