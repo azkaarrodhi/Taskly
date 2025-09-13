@@ -355,6 +355,44 @@ denyNotif.addEventListener("click", () => {
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   let filter = "all";
 
+  function formatDeadline(dateStr) {
+  if (!dateStr) return "";
+
+  let now = new Date();
+  let deadline = new Date(dateStr);
+  let diff = deadline - now;
+
+  if (diff <= 0) {
+    return "Lewat deadline";
+  }
+
+  let oneDay = 24 * 60 * 60 * 1000;
+  let oneHour = 60 * 60 * 1000;
+  let oneMinute = 60 * 1000;
+
+  if (diff <= oneMinute) {
+    return "Kurang 1 menit";
+  } else if (diff < oneHour) {
+    let m = Math.floor(diff / oneMinute);
+    return `Kurang ${m} menit`;
+  } else if (diff < oneDay) {
+    let h = Math.floor(diff / oneHour);
+    return `Kurang ${h} jam`;
+  } else if (diff < 2 * oneDay) {
+    return "Besok";
+  } else {
+    // format dd-mm-yyyy hh.mm
+    let d = deadline;
+    let year = d.getFullYear();
+    let month = String(d.getMonth() + 1).padStart(2, "0");
+    let day = String(d.getDate()).padStart(2, "0");
+    let hour = String(d.getHours()).padStart(2, "0");
+    let minute = String(d.getMinutes()).padStart(2, "0");
+
+    return `${day}-${month}-${year} ${hour}.${minute}`;
+  }
+  }
+   
   function renderTasks() {
     taskList.innerHTML = "";
     let filtered = tasks.filter(task => {
@@ -393,7 +431,6 @@ denyNotif.addEventListener("click", () => {
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }
-
   function addTask() {
     if (!taskInput.value) return;
     tasks.push({
