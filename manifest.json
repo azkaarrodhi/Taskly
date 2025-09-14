@@ -6,13 +6,13 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "https://azkaarrodhi.github.io/Taskly/taskly.png",
-      "sizes": "1280x1280",
+      "src": "https://azkaarrodhi.github.io/Taskly/gambar/taskly.jpg",
+      "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://azkaarrodhi.github.io/Taskly/taskly.png",
-      "sizes": "1280x1280",
+      "src": "https://azkaarrodhi.github.io/Taskly/gambar/taskly.jpg",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ]
