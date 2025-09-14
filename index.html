@@ -376,47 +376,7 @@ setTimeout(() => {
   </div>
 
   <div id="taskList"></div>
- <!--<script>
-const notifAlert = document.getElementById("notifAlert");
-const allowNotif = document.getElementById("allowNotif");
-const denyNotif = document.getElementById("denyNotif");
 
-   
-// cek izin notifikasi saat load halaman
-document.addEventListener("DOMContentLoaded", () => {
-  if ("Notification" in window) {
-    if (Notification.permission === "default") {
-      // kalau belum ada izin → munculkan popup custom
-      notifAlert.style.display = "flex";
-    } else if (Notification.permission === "denied") {
-      console.warn("User menolak notifikasi ❌");
-    }
-  }
-});
-
-// tombol Izinkan
-// allowNotif.addEventListener("click", async () => {
-//  notifAlert.style.display = "none";
-//  let permission = await Notification.requestPermission();
-//  if (permission === "granted") {
-//    navigator.serviceWorker.getRegistration().then(reg => {
-//      if (reg) {
-//        reg.showNotification("Taskly", {
-//          body: "Notifikasi berhasil diaktifkan 🎉",
-//          icon: "https://azkaarrodhi.github.io/Taskly/taskly.png"
-//        });
-//      }
-//    });
-//  } else {
-//    alert("Notifikasi tidak diaktifkan ❌");
-//  }
-// });
-
-// tombol Nanti
-denyNotif.addEventListener("click", () => {
-  notifAlert.style.display = "none";
-});
-  </script>-->
 
 
  
@@ -554,52 +514,7 @@ denyNotif.addEventListener("click", () => {
     renderTasks();
   }
 
-  // ===== NOTIFIKASI =====
-  
-//  function showNotification(title, body) {
-//  if ("Notification" in window && Notification.permission === "granted") {
-//    navigator.serviceWorker.getRegistration().then(reg => {
-//      if (reg) {
-//        reg.showNotification(title, {
-//          body: body,
-//          icon: "icon.png"
-//        });
-//      }
-//    });
 
-    // opsional: bunyi alarm
-//    const audio = new Audio(
-//      "https://assets.mixkit.co/active_storage/sfx/2889/2889-preview.mp3"
-//    );
-//    audio.play();
-//  }
-//  }
-
-//  setInterval(() => {
-//    let now = new Date();
-
-//    tasks.forEach(task => {
-//      if (!task.date || task.done) return;
-
-//      let deadline = new Date(task.date);
-//      let diff = deadline - now;
-
-      // lewat deadline
-//      if (diff <= 0 && !task.notifiedDeadline) {
-//        showNotification("Tugas lewat deadline! ⏰", `${task.text} sudah melewati waktu!`);
-//        task.notifiedDeadline = true;
-//      }
-
-      // H-1 deadline
-//      let oneDay = 24 * 60 * 60 * 1000;
-//      if (diff > 0 && diff <= oneDay && !task.notifiedOneDay) {
-//        showNotification("Besok deadline! 📅", `${task.text} jatuh tempo besok!`);
- //       task.notifiedOneDay = true;
-//      }
-//    });
-
-//    localStorage.setItem("tasks", JSON.stringify(tasks));
-//  }, 10000); // cek tiap 1 menit
 
   // ===== THEME TOGGLE =====
 const metaTheme = document.querySelector('meta[name="theme-color"]');
