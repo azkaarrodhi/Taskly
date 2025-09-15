@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Carattere&family=Kode+Mono:wght@400..700&family=Lavishly+Yours&family=Monsieur+La+Doulaise&family=Outfit:wght@100..900&family=Roboto+Slab:wght@100..900&family=Share+Tech&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Carattere&family=Lavishly+Yours&family=Monsieur+La+Doulaise&family=Outfit:wght@100..900&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Panduan & Kebijakan Privasi - Taskly</title>
+
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ====== GLOBAL ====== */
+    html{pointer-events: none;}
+    body {
+      font-family: 'Roboto Slab', sans-serif;
+      line-height: 1.4;
+      margin: 0;
+      padding: 0;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    h1, h2 {
+      font-weight: 600;
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
+      color: #444;
+      font-family: "Share Tech", sans-serif;
+    }
+    p, li {
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    /* ====== HEADER ====== */
+    header {
+      padding: 25px 15px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-family: "Kode Mono", sans-serif;
+      font-size: 25px;
+      color: #0E4961;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.5px;
+    }
+
+    /* Tombol toggle */
+    .theme-toggle {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    /* ====== MAIN ====== */
+    main {
+      max-width: 950px;
+      margin: 0px auto;
+      padding: 35px;
+      border-radius: 14px;
+      box-shadow: 0 0 0 rgba(0,0,0,0.15);
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+
+    section {
+      margin-bottom: 55px;
+    }
+
+    ol {
+      margin-left: 10px;
+      padding-left: 5px;
+    }
+
+    li {
+      margin-bottom: 22px;
+      padding-left: 8px;
+    }
+
+    /* ====== FOOTER ====== */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      margin-top: 10px;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    /* ====== TEMA SIANG ====== */
+    body[data-theme="light"] {
+      background: #f5f6fa;
+      color: #444;
+    }
+    body[data-theme="light"] header {
+      background: #F7FBFF;
+      
+    }
+    body[data-theme="light"] main {
+      background: #f5f6fa;
+    }
+    body[data-theme="light"] footer {
+      background: #f2f2f2;
+      color: #555;
+      border-top: 1px solid #ddd;
+    }
+
+    /* ====== TEMA MALAM ====== */
+    body[data-theme="dark"] {
+      background: #0d0d0d;
+      color: #e5e5e5;
+    }
+    body[data-theme="dark"] header {
+      background: #1a1a1a;
+      color: #fff;
+    }
+    body[data-theme="dark"] main {
+      background: #1a1a1a;
+      box-shadow: 0 0 25px rgba(0,0,0,0.7);
+    }
+    body[data-theme="dark"] footer {
+      background: #111;
+      color: #aaa;
+      border-top: 1px solid #222;
+    }
+  a {color: #1c86ee;}
+  </style>
+</head>
+<body data-theme="light">
+  <header>
+    <h1>Panduan & Kebijakan Privasi Pengguna</h1>
+  </header>
+
+  <main>
+    <section id="panduan">
+      <h2>Panduan Pengguna Taskly</h2>
+      <p>
+        Taskly adalah aplikasi berbasis web yang dibuat untuk memudahkan pengguna dalam mencatat, 
+        mengatur, dan melacak berbagai tugas sehari-hari dengan cara yang sederhana dan praktis. 
+        Semua data tugas disimpan langsung di perangkat pengguna melalui LocalStorage browser, 
+        sehingga tidak ada informasi pribadi yang keluar ke server eksternal.
+      </p>
+      <ol>
+        <li>
+          Untuk mulai menggunakan Taskly, pengguna cukup membuka aplikasi melalui browser modern 
+          seperti Chrome, Edge, atau Safari dan ketik url resmi <em>"https://azkaarrodhi.github.io/Taskly"</em>. Setelah terbuka, pengguna bisa langsung menambahkan 
+          tugas baru dengan menuliskan judul, deskripsi, serta menetapkan tenggat waktu (deadline).
+        </li>
+        <li>
+          Tugas yang sudah ditambahkan akan muncul di daftar utama. Dari daftar ini, pengguna dapat 
+          menandai tugas sebagai selesai jika sudah dikerjakan. Hal ini membantu membedakan mana yang 
+          masih harus dikerjakan dan mana yang sudah selesai.
+        </li>
+        <li>
+          Aplikasi juga menyediakan statistik sederhana yang secara otomatis menampilkan jumlah total tugas, 
+          jumlah tugas yang masih belum selesai, serta jumlah tugas yang sudah selesai. Statistik ini bisa 
+          membantu pengguna menilai sejauh mana progres yang sudah dicapai.
+        </li>
+        <li>
+          Taskly dapat diinstal sebagai Progressive Web App (PWA). Dengan fitur ini, aplikasi bisa dipasang 
+          langsung ke perangkat dan diakses melalui layar utama tanpa harus membuka browser terlebih dahulu.
+        </li>
+      </ol>
+    </section>
+
+    <section id="kebijakan">
+      <h2>Kebijakan Privasi Taskly</h2>
+      <p>
+        Kebijakan privasi ini menjelaskan secara rinci bagaimana aplikasi Taskly melindungi dan mengelola 
+        data pengguna. Dengan menggunakan Taskly, pengguna dianggap telah memahami dan menyetujui kebijakan 
+        yang berlaku berikut ini:
+      </p>
+      <ol>
+        <li>
+          <strong>Pengumpulan Data:</strong> Taskly tidak pernah mengumpulkan data pribadi apa pun. Semua 
+          informasi mengenai tugas yang dimasukkan pengguna, seperti judul, catatan tambahan, kategori, 
+          maupun tenggat waktu, disimpan sepenuhnya di perangkat pengguna menggunakan LocalStorage.
+        </li>
+        <li>
+          <strong>Penyimpanan Data:</strong> Seluruh data hanya berada di perangkat pengguna. Taskly tidak 
+          memiliki server untuk menyimpan atau mencadangkan data. Apabila cache browser dihapus, perangkat 
+          diganti, atau aplikasi dihapus, maka data juga akan ikut hilang.
+        </li>
+        <li>
+          <strong>Penggunaan Data:</strong> Data yang tersimpan hanya digunakan untuk kebutuhan internal aplikasi, 
+          yaitu menampilkan daftar tugas, menandai status tugas, serta menghitung statistik sederhana yang 
+          membantu pengguna memantau produktivitasnya.
+        </li>
+        <li>
+          <strong>Keamanan:</strong> Karena data tersimpan hanya di perangkat pengguna, keamanan sepenuhnya 
+          bergantung pada browser dan perangkat yang digunakan. Taskly tidak memiliki akses untuk melihat, 
+          memindahkan, atau membagikan data ke pihak lain.
+        </li>
+        <li>
+          <strong>Perubahan Kebijakan:</strong> Kebijakan ini dapat diperbarui sewaktu-waktu jika ada penambahan 
+          fitur baru yang memerlukan penjelasan tambahan mengenai data. Versi terbaru dari kebijakan privasi 
+          akan selalu tersedia di aplikasi.
+        </li>
+        <li>
+          <strong>Kontak:</strong> Untuk pertanyaan atau masukan terkait kebijakan privasi, pengguna dapat 
+          menghubungi pengembang resmi Taskly melalui: <a href="https://azkaarrodhi.vercel.app">https://azkaarrodhi.vercel.app</a>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Taskly - Dibuat oleh Azka AR. Semua hak cipta dilindungi.
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const body = document.body;
+
+    toggleBtn.addEventListener('click', () => {
+      if (body.getAttribute('data-theme') === 'light') {
+        body.setAttribute('data-theme', 'dark');
+        toggleBtn.textContent = '☀️';
+      } else {
+        body.setAttribute('data-theme', 'light');
+        toggleBtn.textContent = '🌙';
+      }
+    });
+  </script>
+</body>
+</html>
