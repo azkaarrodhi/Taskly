@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -9,6 +10,7 @@
   <meta name="description" content="Taskly - to do list sederhana.">
   <meta name="keywords" content="ToDo, Task, Taskly, Productivity, List">
   <meta name="author" content="Azka AR.">
+   
 <link rel="icon" type="image/png" href="https://azkaarrodhi.github.io/Taskly/gambar/taskly-v1.png">
    <link rel="manifest" href="https://azkaarrodhi.github.io/Taskly/manifest.json">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -66,6 +68,7 @@
       user-select: none;
       margin-bottom: 20px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+   
       transition: 0.4s;
     }
     input, select, button {
@@ -146,6 +149,576 @@ select:focus {
       font-size: 0.8rem;
     }
   input{background-color: var(--input); color: var(--colorpc);}
+  
+.switch {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  background: #ccc;
+  border-radius: 50px;
+  cursor: pointer;
+  border: none;
+  margin-right: 9px;
+  outline: none;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+}
+
+.switch .knob {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s;
+}
+
+.alert-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.alert-box {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: 280px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.alert-box h3 {
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.alert-box p {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: var(--muted);
+}
+.alert-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.alert-actions button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+[data-theme="dark"] .switch {
+  background: var(--primary);
+}
+[data-theme="dark"] .switch .knob {
+  transform: translateX(24px);
+}
+  label {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 3px;
+    margin-left: 2px;
+    display: block;
+    transition: 0.4s;
+    color: var(--text);
+  }
+      #installAlert {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: linear-gradient(145deg, #1c86ee, #3aa0ff);
+      color: white;
+      padding: 20px 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s ease;
+      z-index: 9999;
+      max-width: 90%;
+    }
+
+    #installAlert.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #installAlert button {
+      background: white;
+      color: #1c86ee;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #installAlert button:hover {
+      transform: scale(1.05);
+      background: #f0f0f0;
+    }
+
+    #installAlert p {
+      margin: 0;
+      font-size: 15px;
+    }
+    .danger { background: #e74c3c; }
+    .success { background: #2ecc71; }
+    .warning { background: #f39c12; }
+   
+   .overlay {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  opacity:0;
+  z-index:999;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.show {
+  display:block;
+  opacity:1;
+}
+
+.popup {
+  position: fixed;
+  bottom:0; left:0;
+  width:100%;
+  height:50dvh;
+  background:white;
+  border-top-left-radius:12px;
+  border-top-right-radius:12px;
+  display:flex; flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), height 0.3s ease;
+  touch-action:none;
+}
+
+.popup.show {
+  transform: translateY(0);
+}
+
+.popup.expanded {
+  height:100dvh;
+}
+
+.popup-header {
+  height:35px;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  padding:0 10px;
+  background: var(--card);
+  cursor: grab;
+  position: relative;
+}
+
+/* Handle bar di atas header */
+.handle-bar {
+  position: absolute;
+  top:8px;
+  left:52%;
+  transform: translateX(-50%);
+  width:50px;
+  height:4px;
+  background: #ccc;
+  border-radius: 2px;
+  transition: opacity 0.3s ease;
+}
+
+.popup.expanded .handle-bar {
+  opacity: 0; /* hilangkan saat expand */
+}
+
+.popup iframe {
+  border:none;
+  flex:1;
+  width:100%;
+}
+
+.close-btn {
+  cursor:pointer;
+  font-size:30px;
+  font-weight:bold;
+  margin-right: 10px;
+}
+   
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Taskly</h1>
+  <!-- Alert Custom -->
+
+<button id="themeToggle" class="switch" aria-label="Toggle Theme">
+  <span class="knob">🌙</span>
+</button>
+  </header>
+
+<div id="installAlert">
+  <p>Instal aplikasi ini untuk pengalaman terbaik!</p>
+  <button id="installBtn">Instal</button>
+  <button id="dismissBtn">Tidak</button>
+</div>
+
+<script>
+ let installAlert = document.getElementById('installAlert');
+let installBtn = document.getElementById('installBtn');
+let dismissBtn = document.getElementById('dismissBtn');
+
+
+function isPWA() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+
+function showInstallAlert() {
+  installAlert.classList.add('show');
+}
+
+
+installBtn.addEventListener('click', () => {
+  window.location.href = "https://azkaarrodhi.github.io/Taskly/taskly-v2.apk";
+});
+
+
+dismissBtn.addEventListener('click', () => {
+  installAlert.classList.remove('show');
+});
+
+
+setTimeout(() => {
+  if (!isPWA()) {
+    showInstallAlert();
+  }
+}, 1500);
+</script>
+
+  <div class="card">
+    <input type="text" id="taskInput" placeholder="Apa tugas kamu hari ini?">
+    <label for="categoryInput">Kategori:</label>
+    <select id="categoryInput">
+      <option value="Belajar">Belajar</option>
+      <option value="Kerja">Kerja</option>
+      <option value="Hobi">Hobi</option>
+      <option value="">Lainnya</option>
+    </select>
+    <label for="dateInput">Deadline:</label>
+<input type="datetime-local" id="dateInput">
+    <button id="addBtn">Tambah</button>
+ <a id="openPopup" href="#" style="display: flex; align-items: center; font-size: 14px; justify-content: center; width: 100%; background-color: transparent; color: #1c86ee; text-decoration: underline; border-radius: 8px;">
+  Panduan & Kebijakan Privasi
+</a>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div><i class="fa-regular fa-clipboard"></i> Total</div><h2 id="totalCount">0</h2></div>
+    <div class="stat"><div><i class="fa-solid fa-hourglass-start"></i> Belum</div><h2 id="pendingCount">0</h2></div>
+    <div class="stat"><div><i class="fa-solid fa-square-check"></i> Selesai</div><h2 id="doneCount">0</h2></div>
+  </div>
+
+  <div class="filters">
+    <select id="filterCategory">
+      <option value="all">Semua Kategori</option>
+      <option value="Belajar">Belajar</option>
+      <option value="Kerja">Kerja</option>
+      <option value="Hobi">Hobi</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="Cari tugas...">
+  </div>
+
+  <div class="filters">
+    <button onclick="filterStatus('all')">Semua</button>
+    <button class="warning" onclick="filterStatus('pending')">Belum</button>
+    <button class="success" onclick="filterStatus('done')">Selesai</button>
+    <button class="danger" onclick="clearAll()">Hapus Semua</button>
+  </div>
+
+  <div id="taskList"></div>
+
+
+<div class="overlay" id="overlay">
+  <div class="popup" id="popup">
+    <div class="popup-header" id="popupHeader">
+      <div class="handle-bar" id="handleBar"></div>
+      <span class="close-btn" id="closeBtn">&times;</span>
+    </div>
+    <iframe src="https://azkaarrodhi.github.io/Taskly/panduan-dan-kebijakan-privasi/"></iframe>
+  </div>
+</div>
+
+<script>
+const openBtn = document.getElementById('openPopup');
+const overlay = document.getElementById('overlay');
+const popup = document.getElementById('popup');
+const header = document.getElementById('popupHeader');
+const closeBtn = document.getElementById('closeBtn');
+
+let startY = 0;
+let currentY = 0;
+let isDragging = false;
+
+// Fungsi buka popup dengan animasi slide-up
+function openPopup(){
+  overlay.classList.add('show');
+  popup.classList.add('show');
+  popup.classList.remove('expanded');
+  popup.style.transform = 'translateY(100%)';
+  requestAnimationFrame(()=>{
+    popup.style.transform = 'translateY(0)';
+  });
+  history.pushState({popupOpen:true}, '');
+}
+
+openBtn.addEventListener('click', e=>{
+  e.preventDefault();
+  openPopup();
+});
+
+// Fungsi tutup popup dengan animasi slide-down
+function closePopup(){
+  popup.style.transform = 'translateY(100%)';
+  overlay.style.opacity = 0;
+  setTimeout(()=>{
+    overlay.classList.remove('show');
+    popup.classList.remove('show','expanded');
+    popup.style.transform = '';
+    overlay.style.opacity = '';
+  }, 400);
+  if(history.state && history.state.popupOpen) history.back();
+}
+
+// Tombol X
+closeBtn.addEventListener('click', closePopup);
+
+// Tombol back handphone
+window.addEventListener('popstate', e=>{
+  if(overlay.classList.contains('show')){
+    closePopup();
+  }
+});
+
+// Swipe up untuk expand fullscreen
+header.addEventListener('touchstart', e=>{
+  isDragging = true;
+  startY = e.touches[0].clientY;
+});
+
+header.addEventListener('touchmove', e=>{
+  if(!isDragging) return;
+  currentY = e.touches[0].clientY;
+  const diff = startY - currentY;
+  if(diff > 50){ // tarik ke atas minimal 50px
+    popup.classList.add('expanded'); // handle hilang otomatis
+  }
+});
+
+header.addEventListener('touchend', e=>{
+  isDragging = false;
+});
+</script>
+ 
+  <script>
+   const taskInput = document.getElementById("taskInput");
+  const categoryInput = document.getElementById("categoryInput");
+  const dateInput = document.getElementById("dateInput");
+  const addBtn = document.getElementById("addBtn");
+  const taskList = document.getElementById("taskList");
+  const filterCategory = document.getElementById("filterCategory");
+  const searchInput = document.getElementById("searchInput");
+  const themeToggle = document.getElementById("themeToggle");
+
+  if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js")
+    .then(reg => console.log("SW terdaftar:", reg.scope))
+    .catch(err => console.error("SW gagal:", err));
+  }
+   
+   
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  let filter = "all";
+
+  function formatDeadline(dateStr) {
+  if (!dateStr) return "";
+
+  let now = new Date();
+  let deadline = new Date(dateStr);
+  let diff = deadline - now;
+
+  if (diff <= 0) {
+    return "Lewat deadline";
+  }
+
+  let oneDay = 24 * 60 * 60 * 1000;
+  let oneHour = 60 * 60 * 1000;
+  let oneMinute = 60 * 1000;
+
+  if (diff <= oneMinute) {
+    return "Kurang 1 menit";
+  } else if (diff < oneHour) {
+    let m = Math.floor(diff / oneMinute);
+    return `Kurang ${m} menit`;
+  } else if (diff < oneDay) {
+    let h = Math.floor(diff / oneHour);
+    return `Kurang ${h} jam`;
+  } else if (diff < 2 * oneDay) {
+    return "Besok";
+  } else {
+    // format dd-mm-yyyy hh.mm
+    let d = deadline;
+    let year = d.getFullYear();
+    let month = String(d.getMonth() + 1).padStart(2, "0");
+    let day = String(d.getDate()).padStart(2, "0");
+    let hour = String(d.getHours()).padStart(2, "0");
+    let minute = String(d.getMinutes()).padStart(2, "0");
+
+    return `${day}-${month}-${year} ${hour}.${minute}`;
+  }
+  }
+   
+  function renderTasks() {
+    taskList.innerHTML = "";
+    let filtered = tasks.filter(task => {
+      let matchStatus =
+        filter === "all" ||
+        (filter === "done" && task.done) ||
+        (filter === "pending" && !task.done);
+      let matchCategory =
+        filterCategory.value === "all" ||
+        task.category === filterCategory.value;
+      let matchSearch = task.text
+        .toLowerCase()
+        .includes(searchInput.value.toLowerCase());
+      return matchStatus && matchCategory && matchSearch;
+    });
+
+    filtered.forEach((task, i) => {
+      let div = document.createElement("div");
+      div.className = "task " + (task.done ? "done" : "");
+      div.innerHTML = `
+        <div class="task-info">
+          <strong>${task.text}</strong><br>
+          <small>${task.category || "Umum"} • ${formatDeadline(task.date)}</small>
+          </div>
+        <div class="task-actions">
+          <button class="success" onclick="toggleDone(${i})">${task.done ? "↩" : "✓"}</button>
+          <button class="danger" onclick="deleteTask(${i})">X</button>
+        </div>
+      `;
+      taskList.appendChild(div);
+    });
+
+    document.getElementById("totalCount").innerText = tasks.length;
+    document.getElementById("pendingCount").innerText = tasks.filter(t => !t.done).length;
+    document.getElementById("doneCount").innerText = tasks.filter(t => t.done).length;
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+  function addTask() {
+    if (!taskInput.value) return;
+    tasks.push({
+      text: taskInput.value,
+      category: categoryInput.value,
+      date: dateInput.value,
+      done: false,
+      notifiedDeadline: false,
+      notifiedOneDay: false
+    });
+    taskInput.value = "";
+    categoryInput.value = "";
+    dateInput.value = "";
+    renderTasks();
+  }
+
+  function toggleDone(i) {
+    tasks[i].done = !tasks[i].done;
+    renderTasks();
+  }
+
+  function deleteTask(i) {
+    tasks.splice(i, 1);
+    renderTasks();
+  }
+
+  function clearAll() {
+    if (confirm("Yakin hapus semua tugas?")) {
+      tasks = [];
+      renderTasks();
+    }
+  }
+
+  function filterStatus(status) {
+    filter = status;
+    renderTasks();
+  }
+
+
+
+  // ===== THEME TOGGLE =====
+const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+// cek theme tersimpan saat load
+document.addEventListener("DOMContentLoaded", () => {
+  let savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.setAttribute("data-theme", "dark");
+    themeToggle.querySelector(".knob").textContent = "🌙";
+    metaTheme.setAttribute("content", "#0f0f17");
+  } else {
+    document.body.removeAttribute("data-theme");
+    themeToggle.querySelector(".knob").textContent = "🌙";
+    metaTheme.setAttribute("content", "#f5f6fa");
+  }
+});
+
+themeToggle.addEventListener("click", () => {
+  let theme = document.body.getAttribute("data-theme");
+  if (theme === "dark") {
+    document.body.removeAttribute("data-theme");
+    themeToggle.querySelector(".knob").textContent = "🌙";
+    metaTheme.setAttribute("content", "#f5f6fa");
+    localStorage.setItem("theme", "light"); // simpan pilihan
+  } else {
+    document.body.setAttribute("data-theme", "dark");
+    themeToggle.querySelector(".knob").textContent = "🌙";
+    metaTheme.setAttribute("content", "#0f0f17");
+    localStorage.setItem("theme", "dark"); // simpan pilihan
+  }
+});
+
+  // ===== EVENT LISTENER =====
+  addBtn.addEventListener("click", addTask);
+  searchInput.addEventListener("input", renderTasks);
+  filterCategory.addEventListener("change", renderTasks);
+
+  // ===== START =====
+  
+  renderTasks();
+  
+  </script>
+    <footer style="background:transparent; color:#aaa; text-align:center; padding:10px; margin-top:40px; font-size:14px;">
+  © 2025 Azka AR. All rights reserved.
+</footer>
+</body>
+</html>
   
 .switch {
   position: relative;
