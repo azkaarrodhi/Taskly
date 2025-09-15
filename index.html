@@ -488,11 +488,6 @@ function openPopup(){
   history.pushState({popupOpen:true}, '');
 }
 
-openBtn.addEventListener('click', e=>{
-  e.preventDefault();
-  openPopup();
-});
-
 // Fungsi tutup popup dengan animasi slide-down
 function closePopup(){
   popup.style.transform = 'translateY(100%)';
@@ -506,12 +501,24 @@ function closePopup(){
   if(history.state && history.state.popupOpen) history.back();
 }
 
+openBtn.addEventListener('click', e=>{
+  e.preventDefault();
+  openPopup();
+});
+
 // Tombol X
 closeBtn.addEventListener('click', closePopup);
 
 // Tombol back handphone
 window.addEventListener('popstate', e=>{
   if(overlay.classList.contains('show')){
+    closePopup();
+  }
+});
+
+// Klik di luar popup (overlay)
+overlay.addEventListener('click', e=>{
+  if(e.target === overlay){ // hanya jika klik area gelap
     closePopup();
   }
 });
